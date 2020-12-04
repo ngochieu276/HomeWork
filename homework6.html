@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+ <meta charset=utf-8 />
+ <title>JS DOM paragraph style</title>
+</head>
+
+<body onload="getSize()" onresize="getSize()">
+ <!-------------------1--------------------->
+ <p id='text'>JavaScript Exercises - w3resource</p>
+ <div>
+  <button id="jsstyle" onclick="js_style()">Style</button>
+ </div>
+
+  <!-------------------2 + 3 --------------------->
+  <form class="form1">
+   First name: <input class="firstName" type="text" name="fname" value="David"><br>
+   Last name: <input class="lastName" type="text" name="lname" value="Beckham"><br>
+  </form>
+  <input class="submit" type="submit" value="Submit">
+
+  <!-------------------4--------------------->
+  <p><a id="w3r" type="text/html" hreflang="en-us" rel="nofollow" target="_self"
+    href="https://www.w3resource.com/">w3resource</a></p>
+  <button class="btn">Click here to get attributes value</button>
+
+  <!-------------------5--------------------->
+  <table id="sampleTable" border="1">
+    <tr>
+      <td>Row1 cell1</td>
+      <td>Row1 cell2</td>
+    </tr>
+    <tr>
+      <td>Row2 cell1</td>
+      <td>Row2 cell2</td>
+    </tr>
+  </table><br>
+  <input type="button" class="button-row" value="Insert row">
+
+  <!-------------------6--------------------->
+  <form>
+    <select id="colorSelect">
+      <option>Red</option>
+      <option>Green</option>
+      <option>White</option>
+      <option>Black</option>
+    </select>
+    <input type="button" class="button-6" value="Select and Remove">
+  </form>
+
+  <!-------------------6.1--------------------->
+  <form>
+    <select id="colorSelect2">
+      <option>Red</option>
+      <option>Green</option>
+      <option>White</option>
+      <option>Black</option>
+    </select>
+    <input type=”text” id='textField'>
+    <input type="button" class="button-6-1"value="Select and Remove">
+  </form>
+
+  <!-------------------7--------------------->
+  <div class="imageContainer">
+    <image class="image" src=""></image>
+  </div>
+  <button class="button-7">Button7</button>
+
+  <!-------------------8--------------------->
+  <div id="wh">
+    <!-- Place height and width size here! -->
+  </div>
+
+  <script>
+   /*-------------1--------------------*/
+   function js_style() {
+    document.querySelector('#text').style.fontSize = "50px"
+   }
+
+   /*-------------2 + 3 --------------------*/
+  document.querySelector(".submit").addEventListener("click",(e) => {
+  e.preventDefault();
+  document.querySelector('.form1').style.backgroundColor = "red";
+  console.log(`${document.querySelector('.firstName').value}`)
+  })
+  /*-------------4--------------------*/
+  document.querySelector(".btn").addEventListener("click",() => {
+   console.log(document.querySelector("#w3r").attributes)
+  })
+
+  /*-------------5--------------------*/
+  const table = document.querySelector('#sampleTable');
+  const button5 = document.querySelector('.button-row');
+  let row = 3;
+  button5.addEventListener("click",function() {
+    const html = `<tr>
+      <td>Row${row} cell1</td>
+      <td>Row${row} cell2</td>
+    </tr>`;
+    table.insertAdjacentHTML("beforeend",html)
+    row++;
+  })
+
+   /*-------------6--------------------*/
+   const button6 = document.querySelector(".button-6")
+   function removeColor() {
+     let x = document.querySelector('#colorSelect');
+     x.remove(x.selectedIndex)
+   }
+   button6.addEventListener("click",removeColor)
+
+   /*-------------6.1--------------------*/
+
+   const inputValue = document.querySelector("#textField");
+   const button61 = document.querySelector(".button-6-1")
+   function addColor() {
+     const color = inputValue.value;
+     const valueToAdd = `<option>${color}</option>`;
+     document.querySelector("#colorSelect2").insertAdjacentHTML("beforeend",valueToAdd)
+   }
+  button61.addEventListener("click",addColor)
+  
+  /*-------------7--------------------*/
+  imageArray = [    {
+                    src:"http://farm4.staticflickr.com/3691/11268502654_f28f05966c_m.jpg",
+                    width: "240", 
+                    height: "160"
+                    },
+                    {
+                    src: "http://farm1.staticflickr.com/33/45336904_1aef569b30_n.jpg",
+                    width: "320",
+                    height: "195"  
+                    },
+                    {
+                    src:"http://farm6.staticflickr.com/5211/5384592886_80a512e2c9.jpg",
+                    width: "500",
+                    height: "343"
+                    }                
+]
+function randomPic() {
+  let randomNum = Math.floor(Math.random() * 3);
+  let randomImage = imageArray[randomNum];
+  document.querySelector(".image").src= randomImage.src;
+  document.querySelector(".image").style.width = randomImage.width;
+  document.querySelector(".image").style.height = randomImage.height;
+}
+document.querySelector(".button-7").addEventListener("click",randomPic);
+
+/*----------------8--------------------*/
+  function getSize() {
+    var w = document.documentElement.clientWidth;
+    var h = document.documentElement.clientHeight;
+
+    // put the result into a h1 tag
+    document.getElementById('wh').innerHTML = "<h1>Width: " + w + " Height: " + h + "</h1>";
+  }
+  </script>
+</body>
+
+</html>
